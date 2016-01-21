@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>PhoneBook</title>
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/datedropper.css">
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+	<script src="js/datedropper.js"></script>
+	<script src="js/script.js"></script>
+</head>
+<body>
+	<div class="container">
+<!-- Создание нового контакта -->
+		<div class="add-new-wrap">
+			<div class="add-contact">
+				<input class="last-name" type="text" placeholder="Surname" maxlength="50">
+				<input class="first-name" type="text" placeholder="Name" maxlength="50">
+				<input class="patronymic" type="text" placeholder="Patronymic" maxlength="50">
+				<input class="organization" type="text" placeholder="Organization">
+				<input class="mobile" type="text" placeholder="Mobile">
+				<input class="home" type="text" placeholder="Home">
+				<input class="work" type="text" placeholder="Work">
+				<input class="email" type="text" placeholder="E-mail">
+				<input class="adress" type="text" placeholder="Adress">
+				<input class="birthday" type="text" placeholder="Birthday">
+				<div class="upload">
+					<div>Load photo</div>
+					<input class="photo" type="file">
+				</div>
+				<div class="btn save">Save</div>
+				<div class="btn close">Cancel</div>
+			</div>
+		</div>
+<!-- Страница с компактным списком -->
+		<div class="left-side">
+			<div class="face">
+				<div class="open-book"></div>
+			</div>
+			<div class="back">
+				<div class="page left">
+					<div class="bookmark-viewport">
+						<div class="bookmark"></div>
+					</div>
+					<p class="head"></p>
+					<div class="search-block">
+						<input class="search" type="search" placeholder="Search">
+						<div class="show-all">Show all</div>
+					</div>
+					<div class="viewport">
+						<ul class="compact-view"></ul>
+					</div>
+					<div class="btn add">Create new contact</div>
+				</div>
+			</div>
+		</div>
+		<div class="right-side">
+			<!-- Страница с полным описанием -->
+			<div class="page right">
+				<ul class="full-view"></ul>
+			</div>
+		</div>
+	</div>
+<!-- Шаблон компактного списка-->
+	<script id="template" type="text/template">
+		<li class="compact-view" data-num="<%= num %>"><%=fullName%>
+			<div class="birthday-logo" title="Today celebrates a birthday"></div>
+		</li>
+	</script>
+<!-- Шаблон полного описания и редактирования-->
+	<script id="template-second" type="text/template">
+		<li class="full-view" data-num="<%= num %>">
+			<div class="ready-note">
+				<div class="viewport">
+					<img class="photo-id" src="<%= photo %>">
+					<div class="full-name">
+						<h1><%=fullName%></h1>
+						<div class="organization"><%=organization%></div>
+					</div>
+					<div class="mobile">
+						<div class="header">Mobile:</div>
+						<div class="description"><%=mobile%></div>
+					</div>
+					<div class="home">
+						<div class="header">Home:</div>
+						<div class="description"><%=home%></div>
+					</div>
+					<div class="work">
+						<div class="header">Work:</div>
+						<div class="description"><%=work%></div>
+					</div>
+					<div class="email">
+						<div class="header">Email:</div>
+						<div class="description">
+							<a href="mailto:<%=email%>"><%=email%></a>
+						</div>
+					</div>
+					<div class="adress">
+						<div class="header">Adress:</div>
+						<div class="description"><%=adress%></div>
+					</div>
+					<div class="birthday">
+						<div class="header">Birthday:</div>
+						<div class="description"><%=birthday%></div>
+					</div>
+				</div>
+				<div class="btn edit">Edit</div>
+				<div class="btn remove">Remove</div>
+			</div>
+			<div class="edit-note">
+				<div class="viewport">
+					<div class="last-name">
+						<div class="header">Surname:</div>
+						<input type="text" class="last-name-edit" placeholder="Click for edit" maxlength="50">
+					</div>
+					<div class="first-name">
+						<div class="header">Name:</div>
+						<input type="text" class="first-name-edit" placeholder="Click for edit" maxlength="50">
+					</div>
+					<div class="patronymic">
+						<div class="header">Patronymic:</div>
+						<input type="text" class="patronymic-edit" placeholder="Click for edit" maxlength="50">
+					</div>
+					<div class="organization">
+						<div class="header">Organization:</div>
+						<input type="text" class="organization-edit" placeholder="Click for edit">
+					</div>
+					<div class="mobile">
+						<div class="header">Mobile:</div>
+						<input type="text" class="mobile-edit" placeholder="Click for edit">
+					</div>
+					<div class="home">
+						<div class="header">Home:</div>
+						<input type="text" class="home-edit" placeholder="Click for edit">
+					</div>
+					<div class="work">
+						<div class="header">Work:</div>
+						<input type="text" class="work-edit" placeholder="Click for edit">
+					</div>
+					<div class="email">
+						<div class="header">Email:</div>
+						<input type="text" class="email-edit" placeholder="Click for edit">
+					</div>
+					<div class="adress">
+						<div class="header">Adress:</div>
+						<input type="text" class="adress-edit" placeholder="Click for edit">
+					</div>
+					<div class="birthday">
+						<div class="header">Birthday:</div>
+						<input type="text" class="birthday-edit" placeholder="Click for edit">
+					</div>
+					<div class="upload">
+						<div>Load photo</div>
+						<input class="photo" type="file">
+					</div>
+				</div>
+				<div class="btn save-edit">Save</div>
+			</div>
+		</li>
+	</script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background: url(imgs/dark_wood.png);
+	-webkit-box-sizing: covers;
+	-moz-box-sizing: covers;
+	box-sizing: covers;
+}
+.container {
+	width: 810px;
+	height: 600px;
+	padding: 15px 25px;
+	position: relative;
+	margin: 20px auto;
+	left: -200px;
+	font-size: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-perspective: 1000px;
+	-moz-perspective: 1000px;
+	perspective: 1000px;
+	
+}
+.page {
+	width: 360px;
+	height: 570px;
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+	font-size: 14px;
+	position: absolute;
+}
+.btn {
+	border: 1px solid grey;
+	text-align: center;
+	line-height: 25px;
+	cursor: pointer;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font-size: 14px;
+	display: inline-block;
+	padding: 0 10px;
+	color: grey;
+	&:hover {
+		background: linear-gradient(to top, #79C7ED, #1C9FE7);
+		color: white;
+		-webkit-box-shadow: 
+			inset rgba(0,0,0,.5) -1px -1px 2px,
+			inset rgba(255,255,255,.9) 1px 1px 2px,
+			rgba(0,0,0,.8) 1px 1px 2px -1px;
+		box-shadow: 
+			inset rgba(0,0,0,.5) -1px -1px 2px,
+			inset rgba(255,255,255,.9) 1px 1px 2px,
+			rgba(0,0,0,.8) 1px 1px 2px -1px;
+	}
+}
+.viewport {
+	height: 460px;
+	overflow: scroll;
+	overflow-x: hidden;
+	margin-bottom: 10px;
+	&::-webkit-scrollbar {
+		width: 5px;
+	}
+	&::-webkit-scrollbar-thumb {
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+	}
+}
+input {
+	border: none;
+	background: transparent;
+	&:focus {
+			outline: none;
+		}
+}
+.upload {
+	position: relative;
+	overflow: hidden;
+	border-bottom: 1px solid grey;
+	cursor: pointer;
+	text-align: center;
+	div {
+		color: grey;
+		font-size: 14px;
+		line-height: 30px;
+	}
+	&:hover div{
+		background: #79C7ED;
+		color: white;
+	}
+}
+.upload.have-file{
+	div{
+		color: green;
+	}
+	&:hover div{
+		background: lightgreen;
+		color: white;
+	}
+}
+.photo {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0 !important;
+	height: 30px;
+}
+// Общие стили
+
+.add-new-wrap {
+	display: none;
+	opacity: 0;
+	width: 810px;
+	height: 600px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+}
+.add-contact {
+	padding: 25px;
+	padding-bottom: 10px;
+	background: #E6E6E6;
+	border: 2px solid #79C7ED;
+	position: absolute;
+	left: 228px;
+	top: 62px;
+	font-size: 14px;
+	text-align: center;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.6);
+	-moz-box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.6);
+	box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.6);
+	input {
+		display: block;
+		width: 300px;
+		height: 30px;
+		margin: auto;
+		border-bottom: 1px solid grey;
+		&:focus {
+			border-bottom: 1px solid #1C9FE7;
+		}
+	}
+	.btn {
+		margin: 10px 10px 0;
+	}
+}
+
+.left-side {
+	width: 405px;
+	height: 600px;
+	position: relative;
+	left: 380px;
+	top: -15px;
+	display: inline-block;
+	transform-style: preserve-3d;
+	transition: all 2s ease-in-out;
+	transform-origin: left;
+	z-index: 1;
+}
+.face, .back {
+	width: 405px;
+	height: 600px;
+	font-size: 50px;
+	position: absolute;
+	vertical-align: top;
+}
+.face {
+	background: url(imgs/cover.png);
+	backface-visibility: hidden;
+	z-index: 2;
+	transform: rotateY(0deg);
+	-webkit-box-shadow: -7px -5px 17px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: -7px -5px 17px 0px rgba(0,0,0,0.75);
+	box-shadow: -7px -5px 17px 0px rgba(0,0,0,0.75);
+	&:hover .open-book{
+		animation: scale 1s infinite;
+	}
+	.open-book{
+		position: absolute;
+		top: 271px;
+		left: 318px;
+		width: 62px;
+		height: 67px;
+		-webkit-border-radius: 50%;
+		border-radius: 50%;
+		cursor: pointer;
+		background: url(imgs/cover-btn.png);
+	}
+}
+
+@keyframes scale {
+	from {transform: scale(1);}
+	to {transform: scale(1.1);}
+}
+.bookmark-viewport {
+	width: 30px;
+	height: 45px;
+	overflow: hidden;
+	position: absolute;
+	top: -8px;
+}
+.bookmark {
+	width: 30px;
+	height: 45px;
+	background: url(imgs/bookmark.png);
+	position: absolute;
+	top: -20px;
+	transition: all 0.5s ease-in-out;
+	cursor: pointer;
+	&:hover {
+		-webkit-transform: translateY(20px);
+		-moz-transform: translateY(20px);
+		-ms-transform: translateY(20px);
+		-o-transform: translateY(20px);
+		transform: translateY(20px);
+	}
+}
+.back {
+	background: url(imgs/book-left.png);
+	transform: rotateY(180deg);
+	backface-visibility: hidden;
+}
+.left {
+	top: 15px;
+	left: 25px;
+	.head {
+		font-size: 18px;
+		height: 30px;
+		line-height: 30px;
+	}
+	.search-block {
+		height: 20px;
+		border: 1px solid grey;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		display: inline-block;
+		margin-bottom: 15px;
+	}
+	.search {
+		background: white;
+		height: 20px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		padding: 0 10px;
+		border-right: 1px solid grey;
+		z-index: 2;
+		position: relative;
+	}
+	.show-all {
+		height: 20px;
+		cursor: pointer;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		line-height: 20px;
+		padding: 0 10px 0 20px;
+		display: inline-block;
+		vertical-align: top;
+		margin-left: -20px;
+		position: relative;
+		color: grey;
+		&:hover {
+			background: linear-gradient(to top, #79C7ED, #1C9FE7);
+			color: white;
+			z-index: 1;
+			-webkit-box-shadow: 
+				inset rgba(0,0,0,.5) -1px -1px 2px,
+				inset rgba(255,255,255,.9) 1px 1px 2px,
+				rgba(0,0,0,.8) 1px 1px 2px -1px;
+			box-shadow: 
+				inset rgba(0,0,0,.5) -1px -1px 2px,
+				inset rgba(255,255,255,.9) 1px 1px 2px,
+				rgba(0,0,0,.8) 1px 1px 2px -1px;
+		}
+	}
+	ul.compact-view {
+		text-align: left;
+	}
+	li.compact-view {
+		display: block;
+		width: 100%;
+		min-height: 30px;
+		border: 1px solid grey;
+		border-bottom: none;
+		padding: 0 50px 0 25px;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		line-height: 30px;
+		cursor: pointer;
+		position: relative;
+		word-wrap: break-word;
+		&:last-child {
+			border-bottom: 1px solid grey;
+		}
+		&:hover {
+			-webkit-box-shadow: inset 0 0 10px rgba(0,0,0,.5); 
+		}
+		.birthday-logo {
+			background: url(imgs/bday.png);
+			display: none;
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			top: 4px;
+			right: 25px;
+		}
+	}
+	li.compact-view.active {
+		background: linear-gradient(to left, #79C7ED, #1C9FE7);
+		color: white;
+		.birthday-logo {
+			background: url(imgs/bday-hover.png);
+		}
+	}
+	.btn {
+		width: 100%;
+	}
+}
+
+.right-side {
+	width: 405px;
+	height: 600px;
+	background: url(imgs/book-right.png);
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 405px;
+}
+.right {
+	text-align: left;
+	margin-left: 39px;
+	font-size: 0;
+	top: 15px;
+	right: 25px;
+	
+	li.full-view {
+		display: none;
+		position: absolute;
+		opacity: 0;
+		margin-top: 67px;
+	}
+	li.full-view.active {
+		display: block;
+		opacity: 1;
+	}
+	.ready-note {
+		width: 360px;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	.photo-id {
+		width: 83px;
+		height: 83px;
+		border: 1px solid grey;
+		margin-right: 15px;
+		display: inline-block;
+		vertical-align: top;
+		-webkit-border-radius: 50%;
+		border-radius: 50%;
+	}
+	.full-name {
+		font-size: 13px;
+		width: 245px;
+		min-height: 106px;
+		-ms-word-wrap: break-word;
+		word-wrap: break-word;
+		display: inline-block;
+		margin-bottom: 10px;
+	}
+	.about {
+		margin-bottom: 20px;
+	}
+	.header {
+		display: inline-block;
+		vertical-align: top;
+		width: 85px;
+		padding-right: 15px;
+		text-align: right;
+		color: grey;
+		font-weight: bold;
+		font-size: 14px;
+	}
+	.description {
+		display: inline-block;
+		width: 245px;
+		margin-bottom: 20px;
+		-ms-word-wrap: break-word;
+		word-wrap: break-word;
+		font-size: 14px;
+		a {
+			text-decoration: none;
+			color: #1C9FE7;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	.remove {
+		margin-left: 10px;
+		&:hover {
+			background: linear-gradient(to top, #EA3720, #990100);
+		}
+	}
+	.edit-note {
+		display: none;
+		input {
+			border-bottom: 1px solid grey;
+			width: 200px;
+			margin-bottom: 10px;
+			&:hover {
+				-webkit-transition: 0.3s ease-in-out;
+				-moz-transition: 0.3s ease-in-out;
+				-ms-transition: 0.3s ease-in-out;
+				-o-transition: 0.3s ease-in-out;
+				transition: 0.3s ease-in-out;
+				color: #1C9FE7;
+			}
+			&:focus {
+				background: white;
+				color: black;
+			}
+		}
+		input.photo{
+			width: 100%;
+		}
+	}
+}
